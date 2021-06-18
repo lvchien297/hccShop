@@ -7,14 +7,16 @@ using System.Text;
 
 namespace hccShop.Data.Configurations
 {
-    public class CartConfiguration : IEntityTypeConfiguration<Cart>
+    public class PromotionConfiguration : IEntityTypeConfiguration<Promotion>
     {
-        public void Configure(EntityTypeBuilder<Cart> builder)
+        public void Configure(EntityTypeBuilder<Promotion> builder)
         {
-            builder.ToTable("Carts");
+            builder.ToTable("Promotions");
+
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();
-            builder.HasOne(x => x.Product).WithMany(x => x.Carts).HasForeignKey(x => x.ProductId);
+
+            builder.Property(x => x.Name).IsRequired();
         }
     }
 }
