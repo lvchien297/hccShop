@@ -8,6 +8,7 @@ namespace hccShop.Data.Entities
     public class Category
     {
         public int Id { set; get; }
+        public string Name { set; get; }
         public int SortOrder { set; get; }
         public bool IsShowOnHome { set; get; }
         public int? ParentId { set; get; }

@@ -10,7 +10,7 @@ using hccShop.Data.EF;
 namespace hccShop.Data.Migrations
 {
     [DbContext(typeof(HccShopDbContext))]
-    [Migration("20210618102522_Initial")]
+    [Migration("20210618165209_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,6 +78,11 @@ namespace hccShop.Data.Migrations
                     b.Property<bool>("IsShowOnHome")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
@@ -142,7 +147,7 @@ namespace hccShop.Data.Migrations
                     b.Property<DateTime>("OrderDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 6, 18, 17, 25, 21, 867, DateTimeKind.Local).AddTicks(2355));
+                        .HasDefaultValue(new DateTime(2021, 6, 18, 23, 52, 8, 986, DateTimeKind.Local).AddTicks(6510));
 
                     b.Property<string>("ShipAddress")
                         .IsRequired()
@@ -209,14 +214,16 @@ namespace hccShop.Data.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<decimal>("OriginalPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("SeoAlias")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Stock")
                         .ValueGeneratedOnAdd()
