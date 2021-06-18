@@ -1,5 +1,6 @@
 ﻿using hccShop.Data.Configurations;
 using hccShop.Data.Entities;
+using hccShop.Data.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -27,11 +28,7 @@ namespace hccShop.Data.EF
             modelBuilder.ApplyConfiguration(new TransactionConfiguration());
 
             //Data seeding
-            //modelBuilder.Entity<AppConfig>().HasData(new AppConfig()
-            //{
-            //    Key = "HomeTitle",
-            //    Value = "This is home page of HccShop"
-            //});
+            modelBuilder.Seed();
         }
 
         public DbSet<AppConfig> AppConfigs { get; set; }
