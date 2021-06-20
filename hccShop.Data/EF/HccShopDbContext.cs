@@ -1,6 +1,8 @@
 ﻿using hccShop.Data.Configurations;
 using hccShop.Data.Entities;
 using hccShop.Data.Extensions;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,7 @@ using System.Text;
 
 namespace hccShop.Data.EF
 {
-    public class HccShopDbContext : DbContext
+    public class HccShopDbContext : IdentityDbContext<AppUser,AppRole,Guid>
     {
         public HccShopDbContext(DbContextOptions options) : base(options)
         {
@@ -30,7 +32,17 @@ namespace hccShop.Data.EF
             modelBuilder.ApplyConfiguration(new LanguageConfiguration());
             modelBuilder.ApplyConfiguration(new ProductTranslationConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryTranslationConfiguration());
-            
+
+            modelBuilder.ApplyConfiguration(new AppUserConfiguration());
+            modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
+
+            modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
+            modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
+            modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
+
+            modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims");
+            modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
+
 
             //Data seeding
             modelBuilder.Seed();
@@ -55,3 +67,4 @@ namespace hccShop.Data.EF
 
     }
 }
+ 
