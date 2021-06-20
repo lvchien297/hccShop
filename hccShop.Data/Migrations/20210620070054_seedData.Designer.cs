@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using hccShop.Data.EF;
 
 namespace hccShop.Data.Migrations
 {
     [DbContext(typeof(HccShopDbContext))]
-    partial class HccShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210620070054_seedData")]
+    partial class seedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,13 +124,6 @@ namespace hccShop.Data.Migrations
                             IsShowOnHome = true,
                             SortOrder = 2,
                             Status = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            IsShowOnHome = true,
-                            SortOrder = 3,
-                            Status = 1
                         });
                 });
 
@@ -174,24 +169,32 @@ namespace hccShop.Data.Migrations
                             Id = 1,
                             CategoryId = 1,
                             LanguageId = "vi-VN",
-                            Name = "Điện thoại",
-                            SeoAlias = "dien-thoai"
+                            Name = "Áo nam",
+                            SeoAlias = "ao-nam"
                         },
                         new
                         {
                             Id = 2,
-                            CategoryId = 2,
-                            LanguageId = "vi-VN",
-                            Name = "Laptop",
-                            SeoAlias = "laptop"
+                            CategoryId = 1,
+                            LanguageId = "en-US",
+                            Name = "Men Shirt",
+                            SeoAlias = "men-shirt"
                         },
                         new
                         {
                             Id = 3,
-                            CategoryId = 3,
+                            CategoryId = 2,
                             LanguageId = "vi-VN",
-                            Name = "Camera",
-                            SeoAlias = "camera"
+                            Name = "Áo nữ",
+                            SeoAlias = "ao-nu"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 2,
+                            LanguageId = "en-US",
+                            Name = "Women Shirt",
+                            SeoAlias = "women-shirt"
                         });
                 });
 
@@ -256,6 +259,12 @@ namespace hccShop.Data.Migrations
                             Id = "vi-VN",
                             IsDefault = true,
                             Name = "Tiếng Việt"
+                        },
+                        new
+                        {
+                            Id = "en-US",
+                            IsDefault = false,
+                            Name = "English"
                         });
                 });
 
@@ -271,7 +280,7 @@ namespace hccShop.Data.Migrations
                     b.Property<DateTime>("OrderDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 6, 20, 16, 19, 6, 407, DateTimeKind.Local).AddTicks(4820));
+                        .HasDefaultValue(new DateTime(2021, 6, 20, 14, 0, 53, 528, DateTimeKind.Local).AddTicks(5237));
 
                     b.Property<string>("ShipAddress")
                         .IsRequired()
@@ -362,18 +371,9 @@ namespace hccShop.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2021, 6, 20, 16, 19, 6, 424, DateTimeKind.Local).AddTicks(5231),
+                            DateCreated = new DateTime(2021, 6, 20, 14, 0, 53, 545, DateTimeKind.Local).AddTicks(1376),
                             OriginalPrice = 100000m,
                             Price = 200000m,
-                            Stock = 0,
-                            ViewCount = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DateCreated = new DateTime(2021, 6, 20, 16, 19, 6, 424, DateTimeKind.Local).AddTicks(6545),
-                            OriginalPrice = 10000000m,
-                            Price = 15000000m,
                             Stock = 0,
                             ViewCount = 0
                         });
@@ -448,22 +448,22 @@ namespace hccShop.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Điện thoại Bphone 3",
-                            Details = "Điện thoại Bphone 3",
+                            Description = "Áo sơ mi nam trắng Việt Tiến",
+                            Details = "Áo sơ mi nam trắng Việt Tiến",
                             LanguageId = "vi-VN",
-                            Name = "Điện thoại Bphone 3",
+                            Name = "Áo sơ mi nam trắng Việt Tiến",
                             ProductId = 1,
-                            SeoAlias = "dien-thoai-bphone3"
+                            SeoAlias = "ao-so-mi-nam-trang-viet-tien"
                         },
                         new
                         {
                             Id = 2,
-                            Description = "Điện thoại Bphone 2",
-                            Details = "Điện thoại Bphone 2",
-                            LanguageId = "vi-VN",
-                            Name = "Điện thoại Bphone 2",
+                            Description = "Viet Tien Men T-Shirt",
+                            Details = "Viet Tien Men T-Shirt",
+                            LanguageId = "en-US",
+                            Name = "Viet Tien Men T-Shirt",
                             ProductId = 1,
-                            SeoAlias = "dien-thoai-bphone2"
+                            SeoAlias = "viet-tien-men-t-shirt"
                         });
                 });
 

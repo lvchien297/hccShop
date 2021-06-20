@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using hccShop.Data.EF;
 
 namespace hccShop.Data.Migrations
 {
     [DbContext(typeof(HccShopDbContext))]
-    partial class HccShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210620071229_seedData2")]
+    partial class seedData2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -271,7 +273,7 @@ namespace hccShop.Data.Migrations
                     b.Property<DateTime>("OrderDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 6, 20, 16, 19, 6, 407, DateTimeKind.Local).AddTicks(4820));
+                        .HasDefaultValue(new DateTime(2021, 6, 20, 14, 12, 28, 572, DateTimeKind.Local).AddTicks(33));
 
                     b.Property<string>("ShipAddress")
                         .IsRequired()
@@ -362,18 +364,9 @@ namespace hccShop.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2021, 6, 20, 16, 19, 6, 424, DateTimeKind.Local).AddTicks(5231),
+                            DateCreated = new DateTime(2021, 6, 20, 14, 12, 28, 588, DateTimeKind.Local).AddTicks(7618),
                             OriginalPrice = 100000m,
                             Price = 200000m,
-                            Stock = 0,
-                            ViewCount = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DateCreated = new DateTime(2021, 6, 20, 16, 19, 6, 424, DateTimeKind.Local).AddTicks(6545),
-                            OriginalPrice = 10000000m,
-                            Price = 15000000m,
                             Stock = 0,
                             ViewCount = 0
                         });
@@ -454,16 +447,6 @@ namespace hccShop.Data.Migrations
                             Name = "Điện thoại Bphone 3",
                             ProductId = 1,
                             SeoAlias = "dien-thoai-bphone3"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Điện thoại Bphone 2",
-                            Details = "Điện thoại Bphone 2",
-                            LanguageId = "vi-VN",
-                            Name = "Điện thoại Bphone 2",
-                            ProductId = 1,
-                            SeoAlias = "dien-thoai-bphone2"
                         });
                 });
 
