@@ -10,8 +10,8 @@ using hccShop.Data.EF;
 namespace hccShop.Data.Migrations
 {
     [DbContext(typeof(HccShopDbContext))]
-    [Migration("20210618174750_seedData")]
-    partial class seedData
+    [Migration("20210620071229_seedData2")]
+    partial class seedData2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,17 +38,17 @@ namespace hccShop.Data.Migrations
                         new
                         {
                             Key = "HomeTitle",
-                            Value = "This is home page of HccShop"
+                            Value = "This is home page of eShopSolution"
                         },
                         new
                         {
-                            Key = "HomeKeyWord",
-                            Value = "This is home keyword of HccShop"
+                            Key = "HomeKeyword",
+                            Value = "This is keyword of eShopSolution"
                         },
                         new
                         {
                             Key = "HomeDescription",
-                            Value = "This is home description of HccShop"
+                            Value = "This is description of eShopSolution"
                         });
                 });
 
@@ -95,11 +95,6 @@ namespace hccShop.Data.Migrations
                     b.Property<bool>("IsShowOnHome")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
@@ -120,7 +115,6 @@ namespace hccShop.Data.Migrations
                         {
                             Id = 1,
                             IsShowOnHome = true,
-                            Name = "Điện thoại",
                             SortOrder = 1,
                             Status = 1
                         },
@@ -128,17 +122,78 @@ namespace hccShop.Data.Migrations
                         {
                             Id = 2,
                             IsShowOnHome = true,
-                            Name = "Laptop",
-                            SortOrder = 1,
+                            SortOrder = 2,
                             Status = 1
                         },
                         new
                         {
                             Id = 3,
                             IsShowOnHome = true,
-                            Name = "Cam",
-                            SortOrder = 1,
+                            SortOrder = 3,
                             Status = 1
+                        });
+                });
+
+            modelBuilder.Entity("hccShop.Data.Entities.CategoryTranslation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LanguageId")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(5)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("SeoAlias")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("CategoryTranslations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            LanguageId = "vi-VN",
+                            Name = "Điện thoại",
+                            SeoAlias = "dien-thoai"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 2,
+                            LanguageId = "vi-VN",
+                            Name = "Laptop",
+                            SeoAlias = "laptop"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 3,
+                            LanguageId = "vi-VN",
+                            Name = "Camera",
+                            SeoAlias = "camera"
                         });
                 });
 
@@ -178,6 +233,34 @@ namespace hccShop.Data.Migrations
                     b.ToTable("Contacts");
                 });
 
+            modelBuilder.Entity("hccShop.Data.Entities.Language", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(5)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(5)");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Languages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "vi-VN",
+                            IsDefault = true,
+                            Name = "Tiếng Việt"
+                        });
+                });
+
             modelBuilder.Entity("hccShop.Data.Entities.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -190,7 +273,7 @@ namespace hccShop.Data.Migrations
                     b.Property<DateTime>("OrderDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 6, 19, 0, 47, 49, 933, DateTimeKind.Local).AddTicks(8371));
+                        .HasDefaultValue(new DateTime(2021, 6, 20, 14, 12, 28, 572, DateTimeKind.Local).AddTicks(33));
 
                     b.Property<string>("ShipAddress")
                         .IsRequired()
@@ -257,11 +340,6 @@ namespace hccShop.Data.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<decimal>("OriginalPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -286,20 +364,9 @@ namespace hccShop.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2021, 6, 19, 0, 47, 49, 946, DateTimeKind.Local).AddTicks(537),
-                            Name = "Iphone 5s",
-                            OriginalPrice = 2000000m,
-                            Price = 2100000m,
-                            Stock = 0,
-                            ViewCount = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DateCreated = new DateTime(2021, 6, 19, 0, 47, 49, 946, DateTimeKind.Local).AddTicks(1898),
-                            Name = "Iphone 6",
-                            OriginalPrice = 1500000m,
-                            Price = 2000000m,
+                            DateCreated = new DateTime(2021, 6, 20, 14, 12, 28, 588, DateTimeKind.Local).AddTicks(7618),
+                            OriginalPrice = 100000m,
+                            Price = 200000m,
                             Stock = 0,
                             ViewCount = 0
                         });
@@ -324,6 +391,62 @@ namespace hccShop.Data.Migrations
                         {
                             CategoryId = 1,
                             ProductId = 1
+                        });
+                });
+
+            modelBuilder.Entity("hccShop.Data.Entities.ProductTranslation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Details")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("LanguageId")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(5)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SeoAlias")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductTranslations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Điện thoại Bphone 3",
+                            Details = "Điện thoại Bphone 3",
+                            LanguageId = "vi-VN",
+                            Name = "Điện thoại Bphone 3",
+                            ProductId = 1,
+                            SeoAlias = "dien-thoai-bphone3"
                         });
                 });
 
@@ -418,6 +541,25 @@ namespace hccShop.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("hccShop.Data.Entities.CategoryTranslation", b =>
+                {
+                    b.HasOne("hccShop.Data.Entities.Category", "Category")
+                        .WithMany("CategoryTranslations")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("hccShop.Data.Entities.Language", "Language")
+                        .WithMany("CategoryTranslations")
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Language");
+                });
+
             modelBuilder.Entity("hccShop.Data.Entities.OrderDetail", b =>
                 {
                     b.HasOne("hccShop.Data.Entities.Order", "Order")
@@ -456,9 +598,37 @@ namespace hccShop.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("hccShop.Data.Entities.ProductTranslation", b =>
+                {
+                    b.HasOne("hccShop.Data.Entities.Language", "Language")
+                        .WithMany("ProductTranslations")
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("hccShop.Data.Entities.Product", "Product")
+                        .WithMany("ProductTranslations")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Language");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("hccShop.Data.Entities.Category", b =>
                 {
+                    b.Navigation("CategoryTranslations");
+
                     b.Navigation("ProductInCategories");
+                });
+
+            modelBuilder.Entity("hccShop.Data.Entities.Language", b =>
+                {
+                    b.Navigation("CategoryTranslations");
+
+                    b.Navigation("ProductTranslations");
                 });
 
             modelBuilder.Entity("hccShop.Data.Entities.Order", b =>
@@ -473,6 +643,8 @@ namespace hccShop.Data.Migrations
                     b.Navigation("OrderDetails");
 
                     b.Navigation("ProductInCategories");
+
+                    b.Navigation("ProductTranslations");
                 });
 #pragma warning restore 612, 618
         }
