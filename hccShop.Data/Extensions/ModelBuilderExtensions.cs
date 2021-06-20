@@ -18,7 +18,7 @@ namespace hccShop.Data.Extensions
             modelBuilder.Entity<Category>().HasData(
                 new Category() { Id = 1, Name = "Điện thoại", IsShowOnHome = true, ParentId = null, SortOrder = 1, Status = Enums.Status.Active, },
                 new Category() { Id = 2, Name = "Laptop", IsShowOnHome = true, ParentId = null, SortOrder = 1, Status = Enums.Status.Active, },
-                new Category() { Id = 3, Name = "Cam", IsShowOnHome = true, ParentId = null, SortOrder = 1, Status = Enums.Status.Active, }
+                new Category() { Id = 3, Name = "Camera", IsShowOnHome = true, ParentId = null, SortOrder = 1, Status = Enums.Status.Active, }
                 );
             modelBuilder.Entity<Product>().HasData(
                 new Product()
@@ -30,7 +30,7 @@ namespace hccShop.Data.Extensions
                     Price = 2100000,
                     Stock = 0,
                     ViewCount = 0,
-                    
+                        
                 },
                 new Product()
                 {
