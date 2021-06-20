@@ -62,7 +62,17 @@ namespace hccShop.Data.Extensions
                Price = 200000,
                Stock = 0,
                ViewCount = 0,
-           });
+           },
+           new Product()
+           {
+               Id = 2,
+               DateCreated = DateTime.Now,
+               OriginalPrice = 10000000,
+               Price = 15000000,
+               Stock = 0,
+               ViewCount = 0,
+           }
+           );
             modelBuilder.Entity<ProductTranslation>().HasData(
                  new ProductTranslation()
                  {
@@ -74,7 +84,18 @@ namespace hccShop.Data.Extensions
 
                      Details = "Điện thoại Bphone 3",
                      Description = "Điện thoại Bphone 3"
-                 });
+                 },
+                new ProductTranslation()
+                {
+                    Id = 2,
+                    ProductId = 1,
+                    Name = "Điện thoại Bphone 2",
+                    LanguageId = "vi-VN",
+                    SeoAlias = "dien-thoai-bphone2",
+
+                    Details = "Điện thoại Bphone 2",
+                    Description = "Điện thoại Bphone 2"
+                });
             modelBuilder.Entity<ProductInCategory>().HasData(
                 new ProductInCategory() { ProductId = 1, CategoryId = 1 }
                 );
