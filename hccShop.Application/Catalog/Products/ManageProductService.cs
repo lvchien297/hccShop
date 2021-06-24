@@ -3,8 +3,11 @@ using hccShop.Application.Catalog.Products.Dtos.Manage;
 using hccShop.Application.Dtos;
 using hccShop.Data.EF;
 using hccShop.Data.Entities;
+using hccShop.Utilities.Exceptions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -56,9 +59,9 @@ namespace hccShop.Application.Catalog.Products
         public async Task<int> Delete(int productId)
         {
             var product = await _context.Products.FindAsync(productId);
-            if(product = null) throw new Exceptions
+            if (product == null) throw new HccShopException($"Cannot fine a product: {productId}");
             _context.Products.Remove(product);
-            await _context.SaveChangesAsync();  
+            return await _context.SaveChangesAsync();  
         }
 
         public Task<List<ProductViewModel>> GetAll()
@@ -66,11 +69,55 @@ namespace hccShop.Application.Catalog.Products
             throw new NotImplementedException();
         }
 
-        public Task<PagedResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request)
+        public async Task<PagedResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request)
         {
-            throw new NotImplementedException();
-        }
+            // select join
+            var query = from p in _context.Products
+                        join pt in _context.ProductTranslations on p.Id equals pt.ProductId
+                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId
+                        join c in _context.Categories on pic.CategoryId equals c.Id
+                        select new { p, pt, pic };
+            //filter
+            if (!string.IsNullOrEmpty(request.Keyword))
+            {
+                query = query.Where(x => x.pt.Name.Contains(request.Keyword));
+            }
 
+            if(request.CategoryIds.Count > 0)
+            {
+                query = query.Where(p => request.CategoryIds.Contains(p.pic.CategoryId));
+            }
+
+            //paging
+            int totalRow = await query.CountAsync();
+
+            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .Select(x => new ProductViewModel() {
+                    Id = x.p.Id,
+                    Name = x.pt.Name,
+                    DateCreated = x.p.DateCreated,
+                    Description = x.pt.Description,
+                    Details = x.pt.Description,
+                    LanguageId = x.pt.LanguageId,
+                    OriginalPrice = x.p.OriginalPrice,
+                    Price = x.p.Price,
+                    SeoAlias = x.pt.SeoAlias,
+                    Stock = x.p.Stock,
+                    ViewCount = x.p.ViewCount,
+                })
+                .ToListAsync();
+
+            // select and projection
+            var pagedResult = new PagedResult<ProductViewModel>()
+            {
+                TotalRecord = totalRow,
+                Items = data,
+            };
+            return pagedResult;
+
+
+        }
         public Task<int> Update(ProductUpdateRequest request)
         {
             throw new NotImplementedException();

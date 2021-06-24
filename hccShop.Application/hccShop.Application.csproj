@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\hccShop.Data\hccShop.Data.csproj" />
+    <ProjectReference Include="..\hccShop.Utilities\hccShop.Utilities.csproj" />
   </ItemGroup>
 
 </Project>
