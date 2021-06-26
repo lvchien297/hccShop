@@ -1,9 +1,7 @@
-﻿using hccShop.Application.Catalog.Products.Dtos;
-using hccShop.Application.Catalog.Products.Dtos.Manage;
-using hccShop.Application.Dtos;
-using System;
+﻿using hccShop.ViewModels.Catalog.Products;
+using hccShop.ViewModels.Common;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace hccShop.Application.Catalog.Products
@@ -18,12 +16,22 @@ namespace hccShop.Application.Catalog.Products
 
         Task<bool> UpdatePrice(int productId, decimal newPrice);
 
-        Task UpdateStock(int productId, int addedQuantity);
+        Task<bool>  UpdateStock(int productId, int addedQuantity);
 
         Task AddViewCount(int productId);   
 
         Task< List<ProductViewModel>> GetAll();
 
-        Task<PagedResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request); 
+        Task<PagedResult<ProductViewModel>> GetAllPaging(GetManageProductPagingRequest request);
+
+        Task<int> AddImages(int productId, List<IFormFile> files);
+
+        Task<int> RemoveImages(int imageId);
+
+        Task<int> UpdateImage(int imageId, string caption, bool isDefault);
+
+        Task<List<ProductImageViewModel>> GetListImage(int productId);
+
+
     }
 }

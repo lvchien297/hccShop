@@ -1,11 +1,11 @@
-﻿using hccShop.Application.Dtos;
+﻿using hccShop.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace hccShop.Application.Catalog.Products.Dtos.Manage
+namespace hccShop.ViewModels.Catalog.Products
 {
-    public class GetProductPagingRequest : PagingRequestBase
+    public class GetManageProductPagingRequest : PagingRequestBase
     {
         public string Keyword { get; set; }
 

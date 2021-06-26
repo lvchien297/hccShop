@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hccShop.Application.Dtos
+namespace hccShop.ViewModels.Common
 {
     public class PagedResult<T>
     {

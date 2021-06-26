@@ -1,14 +1,16 @@
-﻿using hccShop.Application.Catalog.Products.Dtos;
-using hccShop.Application.Catalog.Products.Dtos.Public;
-using hccShop.Application.Dtos;
+﻿
+using hccShop.ViewModels.Catalog.Products;
+using hccShop.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace hccShop.Application.Catalog.Products
 {
     public interface IPublicProductService
     {
-        PagedResult<ProductViewModel> GetAllByCategoryId(GetProductPagingRequest request);
+        Task<PagedResult<ProductViewModel>> GetAllByCategoryId(GetPublicProductPagingRequest request);
+        Task<List<ProductViewModel>> GetAll();        
     }
 }
