@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using hccShop.Data.EF;
 
 namespace hccShop.Data.Migrations
 {
     [DbContext(typeof(HccShopDbContext))]
-    partial class HccShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210625104243_AddProductImageTable")]
+    partial class AddProductImageTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,7 +182,7 @@ namespace hccShop.Data.Migrations
                         new
                         {
                             Id = new Guid("e4c5f58a-33e5-4f05-8283-6cd2cbbc0a3f"),
-                            ConcurrencyStamp = "c394e6fe-7e7f-4119-9b56-dcbd31193c99",
+                            ConcurrencyStamp = "f997363c-62c7-46d4-a85f-93465ff5578d",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -257,7 +259,7 @@ namespace hccShop.Data.Migrations
                         {
                             Id = new Guid("f3e3f26d-b4f0-4ef2-ab2c-e90b694c1061"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "30547e3b-f5b3-48dd-9c37-d85aac7c6c11",
+                            ConcurrencyStamp = "e2aebb5e-5342-44fe-8915-e0ea99ab325f",
                             Dob = new DateTime(2020, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "hccShop@gmail.com",
                             EmailConfirmed = true,
@@ -266,7 +268,7 @@ namespace hccShop.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "hccShop@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBJbUsoBuGXfKP6ay/vHeVr1COxPLD+YXzux16a+6hAPSwZUCOMuxgGkZqvseGpXoA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJPOJtgy+9eZIRKzAWNJxCZghMaK3aI6pim6WkPNE1WUkdnkue2JOj7Va7wR28+k3Q==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -588,7 +590,7 @@ namespace hccShop.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2021, 6, 26, 14, 4, 37, 877, DateTimeKind.Local).AddTicks(6629),
+                            DateCreated = new DateTime(2021, 6, 25, 17, 42, 42, 982, DateTimeKind.Local).AddTicks(2520),
                             OriginalPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,
@@ -597,7 +599,7 @@ namespace hccShop.Data.Migrations
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2021, 6, 26, 14, 4, 37, 878, DateTimeKind.Local).AddTicks(6974),
+                            DateCreated = new DateTime(2021, 6, 25, 17, 42, 42, 983, DateTimeKind.Local).AddTicks(5859),
                             OriginalPrice = 10000000m,
                             Price = 15000000m,
                             Stock = 0,
@@ -618,8 +620,8 @@ namespace hccShop.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<long>("FileSize")
-                        .HasColumnType("bigint");
+                    b.Property<int>("FileSize")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImagePath")
                         .IsRequired()
