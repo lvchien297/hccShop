@@ -1,4 +1,5 @@
 ﻿using hccShop.Application.Catalog.Products;
+using hccShop.ViewModels.Catalog.Products;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,10 +18,18 @@ namespace hccShop.BackendAPI.Controllers
         {
             _publicProductService = publicProductService;
         }
+        //http://localhost:port/product
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             var products = await _publicProductService.GetAll();
+            return Ok(products);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery]GetPublicProductPagingRequest request)
+        {
+            var products = await _publicProductService.GetAllByCategoryId(request);
             return Ok(products);
         }
     }
