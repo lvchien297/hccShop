@@ -26,7 +26,7 @@ namespace hccShop.BackendAPI.Controllers
             return Ok(products);
         }
 
-        [HttpGet]
+        [HttpGet("paging-request")]
         public async Task<IActionResult> Get([FromQuery]GetPublicProductPagingRequest request)
         {
             var products = await _publicProductService.GetAllByCategoryId(request);
